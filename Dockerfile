@@ -17,7 +17,7 @@ RUN apt-get update \
     curl \
     && echo "Dependencies installed"
 
-# Install Node.js (this also installs npm)
+# Install Node.js and npm
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get install -y nodejs \
     && echo "Node.js and npm installed"
@@ -41,8 +41,11 @@ WORKDIR /app
 # Copy all project files into the working directory in the container
 COPY . .
 
-# Install npm dependencies (with npm already installed from the nodejs package)
-RUN npm install
+# Install Node.js dependencies
+RUN npm install && echo "npm install complete"
+
+# Verify node_modules
+RUN ls -l node_modules
 
 # Expose the port your app will run on
 EXPOSE 3000
