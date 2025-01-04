@@ -1,9 +1,11 @@
 services:
   - type: web
-    name: php-online-compiler
-    env: node
+    name: php-node-compiler
+    env: php
     buildCommand: ./render-build.sh
-    startCommand: npm start
-    plan: free
-    branch: main
-    autoDeploy: true
+    startCommand: node server.js
+    envVars:
+      - key: PHP_VERSION
+        value: "7.4"
+      - key: NODE_VERSION
+        value: "16"
