@@ -41,7 +41,9 @@ WORKDIR /app
 # Copy all project files into the working directory in the container
 COPY . .
 
-# Install Node.js dependencies (if applicable)
+RUN apt-get update && apt-get install -y npm
+
+# Install dependencies
 RUN npm install
 
 # Expose the port your app will run on
