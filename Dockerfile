@@ -1,7 +1,7 @@
 # Use official Node.js image as base for Node.js
 FROM node:16 as node-builder
 
-# Set working directory
+# Set working directory for Node.js
 WORKDIR /app
 
 # Copy only package.json into the image
@@ -13,14 +13,16 @@ RUN npm install
 # Copy the rest of your application code
 COPY . .
 
-# Use official PHP image (7.4 FPM or 7.4 Apache)
+# Use official PHP image (7.4 FPM)
 FROM php:7.4-fpm
 
-# Install necessary PHP extensions (if they aren't already part of the image)
+# Install system dependencies and PHP extensions for gd, mbstring, and xml
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
+    zlib1g-dev \
+    libxml2-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd mbstring xml
 
