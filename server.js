@@ -29,7 +29,7 @@ setInterval(() => {
     }
 }, 60000); // Run every minute
 
-// POST endpoint for PHP code execution
+// POST endpoint for code compilation and execution
 app.post("/", (req, res) => {
     const { code, input } = req.body;
 
@@ -46,7 +46,7 @@ app.post("/", (req, res) => {
         return res.json({ output: cache.get(codeHash).result });
     }
 
-    // Create a worker thread for executing the PHP code
+    // Create a worker thread for compilation
     const worker = new Worker("./compiler-worker.js", {
         workerData: { code, input },
     });
