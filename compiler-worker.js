@@ -26,13 +26,13 @@ function cleanupFiles(...files) {
         // Write the code to the source file
         require("fs").writeFileSync(sourceFile, code);
 
-        // Compile the code using PHP (since no need to compile PHP like C++)
-        const phpPath = "php";  // Assuming PHP is in the default PATH
-        const runProcess = spawnSync(phpPath, [sourceFile], {
-            input,
-            encoding: "utf-8",
-            timeout: 5000, // Timeout after 5 seconds
-        });
+        const phpPath = "/usr/bin/php";  // Use the full path if needed
+const runProcess = spawnSync(phpPath, [sourceFile], {
+    input,
+    encoding: "utf-8",
+    timeout: 5000, // Timeout after 5 seconds
+});
+
 
         cleanupFiles(sourceFile);
 
