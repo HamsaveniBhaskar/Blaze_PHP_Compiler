@@ -12,6 +12,8 @@ RUN apt-get update \
     libc-dev \
     gcc \
     make \
+    pkg-config \
+    libonig-dev \
     && echo "Dependencies installed"
 
 # Install gd extension separately
