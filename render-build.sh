@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Update apt and install PHP and necessary packages
+# Update apt and install PHP
 apt-get update
 apt-get install -y \
     php-cli \
@@ -9,6 +9,9 @@ apt-get install -y \
     php-json \
     php-curl \
     build-essential
+
+# Confirm PHP installation
+php -v  # This will print the PHP version
 
 # Install Node.js dependencies
 npm install
