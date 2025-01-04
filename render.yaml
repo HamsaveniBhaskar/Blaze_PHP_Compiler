@@ -1,11 +1,10 @@
 services:
   - type: web
-    name: php-node-compiler
-    env: php
-    buildCommand: ./render-build.sh
-    startCommand: node server.js
-    envVars:
-      - key: PHP_VERSION
-        value: "7.4"
-      - key: NODE_VERSION
-        value: "16"
+    name: php-node-online-compiler
+    env: docker
+    buildCommand: "docker build -t php-node-app ." # Builds the Docker image using your Dockerfile
+    startCommand: "docker run -p 3000:3000 php-node-app" # Run the Docker container
+    healthCheckPath: "/health"
+    instances: 1
+    regions:
+      - oregon
