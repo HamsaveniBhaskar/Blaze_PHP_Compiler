@@ -10,7 +10,11 @@ RUN apt-get update && apt-get install -y \
     php-json \
     php-curl \
     build-essential \
-    clang
+    clang \
+    && apt-get clean
+
+# Check PHP version (for debugging purposes)
+RUN php -v
 
 # Set the working directory inside the container
 WORKDIR /app
