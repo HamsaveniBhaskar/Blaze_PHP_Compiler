@@ -11,6 +11,7 @@ const runProcess = spawnSync(phpPath, [sourceFile], {
 // Check for process errors and log them
 if (runProcess.error) {
     console.error("Error executing PHP:", runProcess.error.message);
+    console.error(runProcess.error.stack);  // Log the stack trace for more info
     return parentPort.postMessage({
         error: { fullError: `Runtime Error: ${runProcess.error.message}` },
     });
