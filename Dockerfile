@@ -12,14 +12,20 @@ RUN apt-get update \
     libc-dev \
     gcc \
     make \
-    && echo "Dependencies installed" \
-    # Install PHP extensions
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && echo "Dependencies installed"
+
+# Install gd extension separately
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd \
-    && docker-php-ext-install mbstring \
-    && docker-php-ext-install xml \
-    && echo "Extensions installed successfully" \
-    || { echo "apt-get or php-ext installation failed"; tail -n 50 /var/log/apt/term.log; exit 1; }
+    && echo "GD extension installed"
+
+# Install mbstring extension separately
+RUN docker-php-ext-install mbstring \
+    && echo "Mbstring extension installed"
+
+# Install xml extension separately
+RUN docker-php-ext-install xml \
+    && echo "XML extension installed"
 
 # Set working directory
 WORKDIR /app
