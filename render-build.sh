@@ -10,8 +10,11 @@ apt-get install -y \
     php-curl \
     build-essential
 
-# Confirm PHP installation
+# Debug PHP installation
+echo "PHP version:"
 php -v  # This will print the PHP version
+echo "PHP path:"
+which php  # This will print the PHP path
 
 # Install Node.js dependencies
 npm install
