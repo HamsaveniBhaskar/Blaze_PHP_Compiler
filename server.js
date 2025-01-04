@@ -46,10 +46,10 @@ app.post("/", (req, res) => {
         return res.json({ output: cache.get(codeHash).result });
     }
 
-    // Create a worker thread for compilation
-    const worker = new Worker("./compiler-worker.js", {
-        workerData: { code, input },
-    });
+const worker = new Worker("./compiler-worker.js", {
+    workerData: { code, input },
+});
+
 
     worker.on("message", (result) => {
         // Cache the result if successful
