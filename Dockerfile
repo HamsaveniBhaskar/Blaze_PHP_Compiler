@@ -13,15 +13,16 @@ RUN npm install
 # Copy the rest of your application code
 COPY . .
 
-# Use official PHP image (7.4 FPM)
+# Use official PHP image (7.4 FPM or 7.4 Apache)
 FROM php:7.4-fpm
 
-# Install necessary PHP extensions
+# Install necessary PHP extensions (if they aren't already part of the image)
 RUN apt-get update && apt-get install -y \
-    php-cli \
-    php-mbstring \
-    php-xml \
-    && docker-php-ext-install mbstring xml
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd mbstring xml
 
 # Copy the Node.js app from the node-builder image
 COPY --from=node-builder /app /app
