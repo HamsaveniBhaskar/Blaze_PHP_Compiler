@@ -1,9 +1,7 @@
 services:
   - type: web
     name: php-online-compiler
-    env: node
-    buildCommand: |
-      apt-get update && apt-get install -y php
-      npm install
-    startCommand: npm start
+    env: docker
+    buildCommand: docker build -t php-online-compiler .
+    startCommand: docker run -p 3000:3000 php-online-compiler
     plan: free
