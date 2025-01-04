@@ -1,13 +1,17 @@
-# Use the official PHP image
+# Use a PHP image as the base
 FROM php:8.1-cli
 
 # Install Node.js and dependencies
-RUN apt-get update && apt-get install -y nodejs npm
+RUN apt-get update && apt-get install -y \
+    nodejs \
+    npm \
+    curl \
+    git
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the package.json and package-lock.json into the container
+# Copy package.json and package-lock.json into the container
 COPY package.json package-lock.json ./
 
 # Install Node.js dependencies
@@ -19,5 +23,5 @@ COPY . .
 # Expose the application port
 EXPOSE 3000
 
-# Run the application with the PHP binary
+# Start the server
 CMD ["node", "server.js"]
