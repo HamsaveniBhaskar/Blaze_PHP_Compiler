@@ -13,10 +13,10 @@ RUN npm install
 # Copy the rest of your application code
 COPY . .
 
-# Use official PHP image
-FROM php:7.4-cli
+# Use official PHP image (7.4 FPM)
+FROM php:7.4-fpm
 
-# Install necessary PHP extensions (if required)
+# Install necessary PHP extensions
 RUN apt-get update && apt-get install -y \
     php-cli \
     php-mbstring \
