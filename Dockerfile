@@ -1,27 +1,36 @@
-# Use a PHP image as the base
-FROM php:8.1-cli
+# Use official Node.js image as base for Node.js
+FROM node:16 as node-builder
 
-# Install Node.js and dependencies
-RUN apt-get update && apt-get install -y \
-    nodejs \
-    npm \
-    curl \
-    git
-
-# Set the working directory inside the container
+# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json into the container
-COPY package.json package-lock.json ./
+# Copy only package.json into the image
+COPY package.json ./
 
-# Install Node.js dependencies
+# Install dependencies using npm
 RUN npm install
 
-# Copy the rest of the application code
+# Copy the rest of your application code
 COPY . .
 
-# Expose the application port
+# Use official PHP image
+FROM php:7.4-cli
+
+# Install necessary PHP extensions (if required)
+RUN apt-get update && apt-get install -y \
+    php-cli \
+    php-mbstring \
+    php-xml \
+    && docker-php-ext-install mbstring xml
+
+# Copy the Node.js app from the node-builder image
+COPY --from=node-builder /app /app
+
+# Set the working directory to /app
+WORKDIR /app
+
+# Expose port 3000
 EXPOSE 3000
 
-# Start the server
-CMD ["node", "server.js"]
+# Command to run when the container starts
+CMD ["npm", "start"]
