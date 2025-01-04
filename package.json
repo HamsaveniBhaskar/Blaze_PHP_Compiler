@@ -1,13 +1,15 @@
 {
+  "name": "php-online-compiler",
+  "version": "1.0.0",
   "scripts": {
-    "start": "node server.js",
-    "build": "echo 'No build step for Node.js app'"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.17.1",
     "body-parser": "^1.19.0",
     "path": "^0.12.7",
     "child_process": "^1.0.2",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "crypto": "1.0.1"
   }
 }
