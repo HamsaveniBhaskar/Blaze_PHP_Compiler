@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "node server.js",
-    "build": "echo 'No build step for Node.js app'"
+    "build": "apt-get update && apt-get install -y php && npm install"
   },
   "dependencies": {
     "express": "^4.17.1",
