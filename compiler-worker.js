@@ -32,3 +32,5 @@ if (runProcess.stdout) {
 return parentPort.postMessage({
     output: runProcess.stdout || "No output received!",
 });
+
+console.log('Running PHP process with:', sourceFile, input);
