@@ -1,7 +1,9 @@
 services:
   - type: web
     name: php-online-compiler
-    env: docker
-    buildCommand: docker build -t php-online-compiler .
-    startCommand: docker run -p 3000:3000 php-online-compiler
+    env: node
+    buildCommand: ./render-build.sh
+    startCommand: npm start
     plan: free
+    branch: main
+    autoDeploy: true
