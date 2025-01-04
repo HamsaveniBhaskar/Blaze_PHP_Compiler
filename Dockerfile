@@ -14,7 +14,13 @@ RUN apt-get update \
     make \
     pkg-config \
     libonig-dev \
+    curl \
     && echo "Dependencies installed"
+
+# Install Node.js and npm
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt-get install -y nodejs \
+    && echo "Node.js and npm installed"
 
 # Install gd extension separately
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
