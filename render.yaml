@@ -2,8 +2,8 @@ services:
   - type: web
     name: php-node-online-compiler
     env: docker
-    buildCommand: "docker build -t php-node-app ." # Builds the Docker image using your Dockerfile
-    startCommand: "docker run -p 3000:3000 php-node-app" # Run the Docker container
+    buildCommand: "docker build -t php-node-app ."  # This is not necessary on Render, as Render uses Dockerfile automatically
+    startCommand: "npm start"  # If you have an npm start command in package.json (or equivalent command to start the app)
     healthCheckPath: "/health"
     instances: 1
     regions:
