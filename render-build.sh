@@ -1,9 +1,11 @@
 #!/bin/bash
 
-# Check the PHP version
-php -v
+# Install PHP and verify installation
+apt-get update
+apt-get install -y php-cli php-common php-curl php-xml php-json
 
-# Check if php is available in the path
+# Verify PHP installation
+php -v
 which php
 
 # Install Node.js dependencies
