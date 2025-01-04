@@ -24,7 +24,11 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     libxml2-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd mbstring xml
+    && docker-php-ext-install gd mbstring xml \
+    || { echo "apt-get failed"; tail -n 50 /var/log/apt/term.log; exit 1; }
+
+# Verify PHP installation and installed extensions
+RUN php -v && php -m
 
 # Copy the Node.js app from the node-builder image
 COPY --from=node-builder /app /app
