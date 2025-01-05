@@ -60,6 +60,4 @@ RUN echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-errors.in
 CMD ["node", "server.js"]
 # Command to run the app
 CMD ["npm", "start"]
-RUN echo "error_reporting(E_ALL);" >> /usr/local/etc/php/conf.d/docker-php-errors.ini
-RUN echo "display_errors = On;" >> /usr/local/etc/php/conf.d/docker-php-errors.ini
 
