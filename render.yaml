@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: php-node-online-compiler
-    env: docker
-    startCommand: "npm start"  # This runs your app using the npm start script
-    healthCheckPath: "/health"
-    instances: 1
-    regions:
-      - oregon
