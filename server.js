@@ -46,10 +46,10 @@ app.post("/", (req, res) => {
         return res.json({ output: cache.get(codeHash).result });
     }
 
-const worker = new Worker("./compiler-worker.js", {
-    workerData: { code, input },
-});
-
+    // Create a new worker thread
+    const worker = new Worker("./compiler-worker.js", {
+        workerData: { code, input },
+    });
 
     worker.on("message", (result) => {
         // Cache the result if successful
@@ -71,7 +71,15 @@ const worker = new Worker("./compiler-worker.js", {
     worker.on("exit", (code) => {
         if (code !== 0) {
             console.error(`Worker stopped with exit code ${code}`);
+            res.status(500).json({
+                error: { fullError: `Worker failed with exit code ${code}` },
+            });
         }
+    });
+
+    // Terminate the worker after execution
+    worker.once("exit", () => {
+        worker.terminate();
     });
 });
 
@@ -83,7 +91,13 @@ app.get("/health", (req, res) => {
 // Self-pinging mechanism to keep the server alive
 setInterval(() => {
     http.get(`http://localhost:${port}/health`, (res) => {
-        console.log("Health check pinged!");
+        if (res.statusCode === 200) {
+            console.log("Health check ping successful!");
+        } else {
+            console.error(`Health check failed with status: ${res.statusCode}`);
+        }
+    }).on("error", (err) => {
+        console.error(`Health check error: ${err.message}`);
     });
 }, 5 * 60 * 1000); // Ping every 5 minutes
 
