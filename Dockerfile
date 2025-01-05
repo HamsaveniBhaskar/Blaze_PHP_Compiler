@@ -40,6 +40,8 @@ WORKDIR /app
 
 # Copy all project files into the working directory in the container
 COPY . .
+# Copy custom PHP configuration
+COPY php-custom.ini /usr/local/etc/php/conf.d/
 
 # Install Node.js dependencies
 RUN npm install && echo "npm install complete"
