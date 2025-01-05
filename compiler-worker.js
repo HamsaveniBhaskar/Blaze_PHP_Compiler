@@ -6,8 +6,9 @@ try {
 
     // Write the code to a temporary file
     const fs = require("fs");
-    const sourceFile = "/tmp/temp.php"; // Use a temporary directory
+    const sourceFile = "/tmp/temp.php";
     fs.writeFileSync(sourceFile, code);
+
 
     // Execute the PHP code
     const runProcess = spawnSync("php", [sourceFile], {
