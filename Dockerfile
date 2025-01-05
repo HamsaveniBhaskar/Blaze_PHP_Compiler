@@ -51,6 +51,9 @@ RUN ls -l node_modules
 
 # Expose the port your app will run on
 EXPOSE 3000
+# Set error reporting and display_errors in the PHP configuration
+RUN echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-errors.ini
+RUN echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-errors.ini
 
 
 # Start the server
